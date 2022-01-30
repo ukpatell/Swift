@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var playerCard  = "card5"
-    @State var cpuCard     = "card9"
-    @State var playerScore = 0
-    @State var cpuScore    = 0
+    @State private var playerCard  = "card5"
+    @State private var cpuCard     = "card9"
+    @State private var playerScore = 0
+    @State private var cpuScore    = 0
     
     var body: some View {
         
@@ -42,12 +42,29 @@ struct ContentView: View {
                     cpuCard = "card" + String(cpuRand)
                     
                     // Update the score
-                    playerScore += 1
-                    cpuScore += 1
+                    if (playerRand > cpuRand){
+                        playerScore += 1
+                    }
+                    if (cpuRand > playerRand){
+                        cpuScore += 1
+                    }
                     
                 }, label: {
                     Image("dealbutton")
                 })
+                
+                Button(action: {
+                    playerScore = 0
+                    cpuScore = 0
+                }, label: {
+                    Text("Reset")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.orange)
+                        .multilineTextAlignment(.center)
+                        .padding([.top, .leading, .trailing])
+                })
+                
                 Spacer()
                 HStack{
                     Spacer()
