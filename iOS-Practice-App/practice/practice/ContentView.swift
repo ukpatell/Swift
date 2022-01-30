@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var playerCard  = "card5"
+    @State var cpuCard     = "card9"
+    @State var playerScore = 0
+    @State var cpuScore    = 0
+    
     var body: some View {
         
         ZStack{
@@ -20,13 +25,29 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Image("card2")
+                    Image(playerCard)
                     Spacer()
-                    Image("card3")
+                    Image(cpuCard)
                     Spacer()
                 }
                 Spacer()
-                Image("dealbutton")
+                
+                Button(action: {
+                    // Generate random number
+                    let playerRand = Int.random(in: 2...14)
+                    let cpuRand = Int.random(in: 2...14)
+                    
+                    // Update the cards
+                    playerCard = "card" + String(playerRand)
+                    cpuCard = "card" + String(cpuRand)
+                    
+                    // Update the score
+                    playerScore += 1
+                    cpuScore += 1
+                    
+                }, label: {
+                    Image("dealbutton")
+                })
                 Spacer()
                 HStack{
                     Spacer()
@@ -36,7 +57,7 @@ struct ContentView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
                             .padding(.bottom)
-                        Text("0")
+                        Text(String(playerScore))
                             .font(.title)
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
@@ -48,7 +69,7 @@ struct ContentView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
                             .padding(.bottom)
-                        Text("0")
+                        Text(String(cpuScore))
                             .font(.title)
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
